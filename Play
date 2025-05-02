@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>雀樂坊 | 24小時自助棋牌室</title>
+    <style>
+        /* 基础样式 */
+        * { box-sizing: border-box; font-family: 'Microsoft JhengHei', sans-serif; }
+        body { margin: 0; background: #f5eee6; }
+
+        /* 导航栏 */
+        .navbar {
+            background: #3d2b1c;
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-link {
+            color: #e6d5c3 !important;
+            margin: 0 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* 首屏横幅 */
+        .hero {
+            height: 80vh;
+            background: linear-gradient(rgba(0,0,0,0.5), url('mahjong-bg.jpg');
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-top: 60px;
+        }
+        .hero h1 { font-size: 3.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+
+        /* 预约模块 */
+        .booking-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: -50px auto 2rem;
+        }
+        .time-slot {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+        .slot-btn {
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .slot-btn.selected {
+            background: #3d2b1c;
+            color: white;
+            border-color: #3d2b1c;
+        }
+
+        /* 价格表 */
+        .pricing-table {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+        }
+        .price-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        .price { 
+            font-size: 2.5rem;
+            color: #3d2b1c;
+            margin: 1rem 0;
+        }
+
+        /* 会员入口 */
+        .member-section {
+            background: #3d2b1c;
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+        .member-btn {
+            background: #e6d5c3;
+            color: #3d2b1c;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .time-slot { grid-template-columns: repeat(2, 1fr); }
+            .hero h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航 -->
+    <nav class="navbar">
+        <div style="display: flex; justify-content: center;">
+            <a href="#home" class="nav-link">首頁</a>
+            <a href="#pricing" class="nav-link">收費</a>
+            <a href="#member" class="nav-link">會員</a>
+            <a href="#contact" class="nav-link">聯絡</a>
+        </div>
+    </nav>
+
+    <!-- 首屏 -->
+    <section class="hero" id="home">
+        <div>
+            <h1>24小時自助麻將房</h1>
+            <p>智能預約 · 獨立包間 · 免費飲品</p>
+        </div>
+    </section>
+
+    <!-- 预约表单 -->
+    <form class="booking-form">
+        <h2>立即預約</h2>
+        <div class="time-slot">
+            <div class="slot-btn">10:00-14:00</div>
+            <div class="slot-btn">14:00-18:00</div>
+            <div class="slot-btn">18:00-22:00</div>
+            <div class="slot-btn">22:00-02:00</div>
+            <div class="slot-btn">02:00-06:00</div>
+            <div class="slot-btn">包日優惠</div>
+        </div>
+        <button type="submit" style="background: #3d2b1c; color: white; width: 100%; padding: 1rem; margin-top: 1rem;">
+            確認時段
+        </button>
+    </form>
+
+    <!-- 价格表 -->
+    <section id="pricing" class="pricing-table">
+        <div class="price-card">
+            <h3>閒時段</h3>
+            <p>週一至週五 10:00-17:00</p>
+            <div class="price">$40<span>/小時</span></div>
+            <ul style="text-align: left; padding: 0 1rem;">
+                <li>✓ 免費茶水</li>
+                <li>✓ 基礎小吃</li>
+                <li>✗ VIP房間</li>
+            </ul>
+        </div>
+        <!-- 更多价格卡... -->
+    </section>
+
+    <!-- 会员入口 -->
+    <section class="member-section" id="member">
+        <h2>會員尊享</h2>
+        <p>立即加入獲取專屬優惠</p>
+        <button class="member-btn">成為會員</button>
+    </section>
+
+    <script>
+        // 时段选择交互
+        document.querySelectorAll('.slot-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+            });
+        });
+
+        // 预约表单提交
+        document.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const selected = document.querySelector('.slot-btn.selected');
+            if (selected) {
+                alert(`已預約時段：${selected.textContent}\n稍後將有專人確認`);
+            } else {
+                alert('請選擇時段');
+            }
+        });
+    </script>
+</body>
+</html>
